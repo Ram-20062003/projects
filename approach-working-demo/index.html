@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Approaches Demo: Top-Down vs Bottom-Up</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="demo-container">
+        <!-- Header -->
+        <header class="demo-header">
+            <h1>AI Approaches Demo: Top-Down vs Bottom-Up</h1>
+            <p class="demo-subtitle">Interactive comparison of symbolic vs connectionist AI for shape recognition</p>
+        </header>
+
+        <!-- Shape Selection -->
+        <section class="shape-selection">
+            <h2>Select a Shape to Analyze</h2>
+            <div class="shape-buttons">
+                <button class="shape-btn" data-shape="circle">
+                    <span class="shape-icon">○</span>
+                    <span class="shape-name">Circle</span>
+                </button>
+                <button class="shape-btn" data-shape="square">
+                    <span class="shape-icon">□</span>
+                    <span class="shape-name">Square</span>
+                </button>
+                <button class="shape-btn" data-shape="triangle">
+                    <span class="shape-icon">△</span>
+                    <span class="shape-name">Triangle</span>
+                </button>
+                <button class="shape-btn" data-shape="rectangle">
+                    <span class="shape-icon">▭</span>
+                    <span class="shape-name">Rectangle</span>
+                </button>
+            </div>
+            <div class="shape-display">
+                <canvas id="shape-canvas" width="200" height="200"></canvas>
+            </div>
+            <button class="btn btn--primary" id="analyze-btn" disabled>Analyze Shape</button>
+        </section>
+
+        <!-- Analysis Container -->
+        <section class="analysis-container" id="analysis-results">
+            <!-- Top-Down Analysis -->
+            <div class="analysis-section topdown-section">
+                <h3><span class="approach-icon">🧠</span> Top-Down Approach (Rule-Based)</h3>
+                <div class="approach-description">
+                    <p>Uses predefined rules and logical reasoning to classify shapes</p>
+                </div>
+                <div class="rule-evaluation" id="rule-evaluation">
+                    <div class="processing-indicator" id="topdown-processing">
+                        <div class="spinner"></div>
+                        <span>Evaluating rules...</span>
+                    </div>
+                    <div class="rule-steps" id="rule-steps"></div>
+                    <div class="confidence-display">
+                        <label>Rule Match Confidence:</label>
+                        <div class="confidence-meter">
+                            <div class="meter-fill topdown-fill" id="topdown-confidence"></div>
+                        </div>
+                        <span class="confidence-text" id="topdown-percentage">0%</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom-Up Analysis -->
+            <div class="analysis-section bottomup-section">
+                <h3><span class="approach-icon">🔗</span> Bottom-Up Approach (Neural Network)</h3>
+                <div class="approach-description">
+                    <p>Learns patterns from data using artificial neural networks</p>
+                </div>
+                <div class="neural-network" id="neural-network">
+                    <div class="processing-indicator" id="bottomup-processing">
+                        <div class="spinner"></div>
+                        <span>Processing through network...</span>
+                    </div>
+                    <div class="network-visualization" id="network-viz">
+                        <div class="network-layer input-layer">
+                            <div class="layer-label">Input Layer<br><small>8 features</small></div>
+                            <div class="nodes" id="input-nodes"></div>
+                        </div>
+                        <div class="network-layer hidden-layer">
+                            <div class="layer-label">Hidden Layer<br><small>6 neurons</small></div>
+                            <div class="nodes" id="hidden-nodes"></div>
+                        </div>
+                        <div class="network-layer output-layer">
+                            <div class="layer-label">Output Layer<br><small>4 classes</small></div>
+                            <div class="nodes" id="output-nodes"></div>
+                        </div>
+                        <svg class="connections" id="network-connections"></svg>
+                    </div>
+                    <div class="confidence-display">
+                        <label>Network Confidence:</label>
+                        <div class="confidence-meter">
+                            <div class="meter-fill bottomup-fill" id="bottomup-confidence"></div>
+                        </div>
+                        <span class="confidence-text" id="bottomup-percentage">0%</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Results Comparison -->
+        <section class="results-comparison" id="results-comparison">
+            <h2>Results Comparison</h2>
+            <div class="result-cards">
+                <div class="result-card topdown-result">
+                    <div class="result-header">
+                        <h4><span class="approach-icon">🧠</span> Top-Down Result</h4>
+                    </div>
+                    <div class="result-content">
+                        <div class="result-shape" id="td-shape">-</div>
+                        <div class="result-confidence" id="td-conf">0%</div>
+                        <div class="result-reasoning">
+                            <strong>Method:</strong>
+                            <p id="td-reason">No analysis yet</p>
+                        </div>
+                        <div class="key-points" id="td-points">
+                            <span class="point">Explainable</span>
+                            <span class="point">Rule-based</span>
+                            <span class="point">Deterministic</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="result-card bottomup-result">
+                    <div class="result-header">
+                        <h4><span class="approach-icon">🔗</span> Bottom-Up Result</h4>
+                    </div>
+                    <div class="result-content">
+                        <div class="result-shape" id="bu-shape">-</div>
+                        <div class="result-confidence" id="bu-conf">0%</div>
+                        <div class="result-reasoning">
+                            <strong>Method:</strong>
+                            <p id="bu-reason">No analysis yet</p>
+                        </div>
+                        <div class="key-points" id="bu-points">
+                            <span class="point">Adaptive</span>
+                            <span class="point">Pattern-based</span>
+                            <span class="point">Statistical</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="key-differences">
+                <h3>Key Differences</h3>
+                <div class="differences-grid">
+                    <div class="difference-item">
+                        <strong>Decision Process:</strong>
+                        <p>Top-Down uses explicit rules, Bottom-Up uses learned patterns</p>
+                    </div>
+                    <div class="difference-item">
+                        <strong>Explainability:</strong>
+                        <p>Top-Down shows exact reasoning steps, Bottom-Up is a "black box"</p>
+                    </div>
+                    <div class="difference-item">
+                        <strong>Data Requirements:</strong>
+                        <p>Top-Down needs expert knowledge, Bottom-Up needs training data</p>
+                    </div>
+                    <div class="difference-item">
+                        <strong>Adaptability:</strong>
+                        <p>Top-Down is rigid, Bottom-Up adapts to new patterns</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="demo-controls">
+                <button class="btn btn--secondary" id="reset-demo">Try Another Shape</button>
+                <button class="btn btn--outline" id="compare-all">Compare All Shapes</button>
+            </div>
+        </section>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
