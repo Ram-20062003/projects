@@ -1,13 +1,15 @@
-# BOTTOM-UP APPROACH (Connectionist AI) - Neural Network
+# BOTTOM-UP APPROACH (Connectionist AI) - Neural Network with 8 Input Features
 import numpy as np
 
 class NeuralNetwork:
     def __init__(self):
         # Initialize random weights (normally learned from training data)
         np.random.seed(42)
-        self.weights_input_hidden = np.random.randn(4, 3) * 0.5
-        self.weights_hidden_output = np.random.randn(3, 3) * 0.5
-        self.bias_hidden = np.random.randn(3) * 0.1
+        # Now 8 input features to 5 hidden neurons (you can adjust hidden size as needed)
+        self.weights_input_hidden = np.random.randn(8, 5) * 0.5
+        # 5 hidden neurons to 3 output classes
+        self.weights_hidden_output = np.random.randn(5, 3) * 0.5
+        self.bias_hidden = np.random.randn(5) * 0.1
         self.bias_output = np.random.randn(3) * 0.1
     
     def sigmoid(self, x):
@@ -40,16 +42,10 @@ class NeuralNetwork:
         
         return classes[prediction_idx], confidence
 
+
 # Example usage
 nn = NeuralNetwork()
-# Features: [corners, curves, symmetry, area_ratio]
-test_features = np.array([0.8, 0.1, 0.7, 0.9])  # Square-like features
+# Features: [f1, f2, f3, f4, f5, f6, f7, f8]
+test_features = np.array([0.8, 0.1, 0.7, 0.9, 0.5, 0.2, 0.4, 0.6])
 result, confidence = nn.classify(test_features)
 print(f"Prediction: {result} ({confidence:.1f}% confidence)")
-
-"""
-Output:
-Hidden layer activations: [0.741 0.5   0.433]
-Output layer activations: [0.425 0.222 0.411]
-Prediction: square (42.5% confidence)
-"""
